@@ -8,6 +8,8 @@ import view.interfaces.IEventCallback;
 import view.interfaces.IGuiWindow;
 import view.interfaces.IUiModule;
 
+// Gui is the container class for the contentPane Panel made concrete in GuiWindow
+
 public class Gui implements IUiModule {
 
     private final IGuiWindow gui;

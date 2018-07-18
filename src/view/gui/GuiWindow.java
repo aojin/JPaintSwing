@@ -1,5 +1,7 @@
 package view.gui;
 
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.NoSuchElementException;
@@ -12,14 +14,18 @@ import view.EventName;
 
 import java.awt.*;
 
+// GuiWindow is the 'source' to which our handle 'listens'
+
 public class GuiWindow extends JFrame implements IGuiWindow {
+    // these private members define the sizes and labels to our GuiWindow
     private final int defaultWidth = 1200;
     private final int defaultHeight = 800;
     private final String defaultTitle = "JPaint";
     private final Insets defaultButtonDimensions 
     	= new Insets(5, 8, 5, 8);
-    private final Map<EventName, JButton> eventButtons = new HashMap<>();
-    private final PaintCanvas canvas;
+    private final Map<EventName, JButton> eventButtons = new HashMap<>(); // The structure pairing EventNames to the buttons.
+    private final PaintCanvas canvas; // we are passed our SINGLE concretion of canvas.
+    private JPanel window;
 
     public GuiWindow(PaintCanvas canvas){
         setVisible(true);
@@ -29,25 +35,28 @@ public class GuiWindow extends JFrame implements IGuiWindow {
         JPanel window = createWindow();
         this.canvas = canvas;
         window.add(canvas, BorderLayout.CENTER);
+        // my additions to the window
+        MouseHandler handler = createMouseHandler(window); // calls to the handler constructor
+        createMouseListeners(window, handler); //
 		validate();
     }
 
     @Override
-	public JButton getButton(EventName eventName) {
+	public JButton getButton(EventName eventName) { // GuiWindow is the concrete implementation of IGuiWindow
 		if(!eventButtons.containsKey(eventName))
 			throw new NoSuchElementException("No button exists for action " + eventName.toString());
 		
 		return eventButtons.get(eventName);
 	}
 
-	private JPanel createWindow() {
+	private JPanel createWindow() { // contentPane is the background panel on which everything is laid out.
 		JPanel contentPane = createBackgroundPanel();
         JPanel buttonPanel = createMenu();
         contentPane.add(buttonPanel, BorderLayout.NORTH);
         return contentPane;
 	}
 
-    private JPanel createMenu() {
+    private JPanel createMenu() { // button panel is the top bar that contains the drop downs.
         JPanel buttonPanel = createButtonPanel();
 
         for(EventName eventName : EventName.values()){
@@ -57,7 +66,7 @@ public class GuiWindow extends JFrame implements IGuiWindow {
         return buttonPanel;
     }
 
-	private void addButtonToPanel(EventName eventName, JPanel panel) {
+	private void addButtonToPanel(EventName eventName, JPanel panel) { // allows the adjustment of ButtonPanel given any new eventName which is then tied to an IEventCallback
 		JButton newButton = createButton(eventName);
         eventButtons.put(eventName, newButton);
         panel.add(newButton);
@@ -92,5 +101,17 @@ public class GuiWindow extends JFrame implements IGuiWindow {
         contentPane.setBackground(Color.WHITE);
         setContentPane(contentPane);
         return contentPane;
+    }
+
+    // My additions
+
+    private MouseHandler createMouseHandler(JPanel window) {
+        return new MouseHandler(window);
+    }
+
+    private void createMouseListeners(JPanel window, MouseHandler mouseHandler){
+        window.addMouseListener(mouseHandler); // <--- adding our custom MouseHandler
+        window.addMouseMotionListener(mouseHandler);
+        window.addMouseWheelListener(mouseHandler);
     }
 }
