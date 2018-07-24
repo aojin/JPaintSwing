@@ -1,7 +1,5 @@
 package view.gui;
 
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.NoSuchElementException;
@@ -9,6 +7,7 @@ import java.util.NoSuchElementException;
 import javax.swing.*;
 import javax.swing.border.*;
 
+import model.persistence.ApplicationState;
 import view.interfaces.IGuiWindow;
 import view.EventName;
 
@@ -25,7 +24,6 @@ public class GuiWindow extends JFrame implements IGuiWindow {
     	= new Insets(5, 8, 5, 8);
     private final Map<EventName, JButton> eventButtons = new HashMap<>(); // The structure pairing EventNames to the buttons.
     private final PaintCanvas canvas; // we are passed our SINGLE concretion of canvas.
-    private JPanel window;
 
     public GuiWindow(PaintCanvas canvas){
         setVisible(true);
@@ -35,9 +33,6 @@ public class GuiWindow extends JFrame implements IGuiWindow {
         JPanel window = createWindow();
         this.canvas = canvas;
         window.add(canvas, BorderLayout.CENTER);
-        // my additions to the window
-        MouseHandler handler = createMouseHandler(window); // calls to the handler constructor
-        createMouseListeners(window, handler); //
 		validate();
     }
 
@@ -103,15 +98,8 @@ public class GuiWindow extends JFrame implements IGuiWindow {
         return contentPane;
     }
 
-    // My additions
-
-    private MouseHandler createMouseHandler(JPanel window) {
-        return new MouseHandler(window);
+    private JLabel createStatusBar() {
+        return new JLabel("Status: ");
     }
 
-    private void createMouseListeners(JPanel window, MouseHandler mouseHandler){
-        window.addMouseListener(mouseHandler); // <--- adding our custom MouseHandler
-        window.addMouseMotionListener(mouseHandler);
-        window.addMouseWheelListener(mouseHandler);
-    }
 }

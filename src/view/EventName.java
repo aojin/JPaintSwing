@@ -31,9 +31,24 @@ public enum EventName {
 			return "CHOOSE START POINT/ENDPOINT MODE";
 		}
 	},
-	UNDO,
-	REDO,
-	COPY,
-	PASTE,
-	DELETE
+	UNDO {
+		@Override
+		public String toString() { return "UNDO"; }
+	},
+	REDO {
+	    @Override
+        public String toString() { return "REDO"; }
+    },
+	COPY {
+	    @Override
+        public String toString() { return "COPY CURRENT SELECTION"; }
+    },
+	PASTE {
+	    @Override
+        public String toString() { return  "PASTE CURRENT SELECTION"; }
+    },
+	DELETE {
+	    @Override
+        public String toString(){ return "DELETE CURRENT SELECTION"; }
+    }
 }

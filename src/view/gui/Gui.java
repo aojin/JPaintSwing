@@ -10,6 +10,8 @@ import view.interfaces.IUiModule;
 
 // Gui is the container class for the contentPane Panel made concrete in GuiWindow
 
+// this class introduces the ActionListener and ActionEvent per Button.
+
 public class Gui implements IUiModule {
 
     private final IGuiWindow gui;
@@ -18,7 +20,9 @@ public class Gui implements IUiModule {
         this.gui = gui;
     }
     
-	@Override
+	@Override // the equivalent of "on button pushed", .run is activated per the callback
+
+    // the event source
 	public void addEvent(EventName eventName, IEventCallback callback) {
 		JButton button = gui.getButton(eventName);
 		button.addActionListener((ActionEvent) -> callback.run());

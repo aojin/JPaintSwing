@@ -28,26 +28,31 @@ public class ApplicationState implements IApplicationState {
     @Override
     public void setActiveShape() {
         activeShapeType = uiModule.getDialogResponse(dialogProvider.getChooseShapeDialog());
+        System.out.println("\nActive Shape Type set to " + activeShapeType);
     }
 
     @Override
     public void setActivePrimaryColor() {
         activePrimaryColor = uiModule.getDialogResponse(dialogProvider.getChoosePrimaryColorDialog());
+        System.out.println("\nActive Primary Color set to " + activePrimaryColor);
     }
 
     @Override
     public void setActiveSecondaryColor() {
         activeSecondaryColor = uiModule.getDialogResponse(dialogProvider.getChooseSecondaryColorDialog());
+        System.out.println("\nActive Secondary Color set to " + activeSecondaryColor);
     }
 
     @Override
     public void setActiveShadingType() {
         activeShapeShadingType = uiModule.getDialogResponse(dialogProvider.getChooseShadingTypeDialog());
+        System.out.println("\nActive Shape Shading Type set to " + activeShapeShadingType);
     }
 
     @Override
     public void setActiveStartAndEndPointMode() {
         activeStartAndEndPointMode = uiModule.getDialogResponse(dialogProvider.getChooseStartAndEndPointModeDialog());
+        System.out.println("\nActive Start And End Point Mode set to " + activeStartAndEndPointMode);
     }
 
     @Override
