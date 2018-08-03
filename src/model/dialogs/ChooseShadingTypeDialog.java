@@ -1,13 +1,13 @@
 package model.dialogs;
 
-import model.ShapeShadingType;
+import model.shapes.ShapeShadingType;
 import model.interfaces.IApplicationState;
 import view.interfaces.IDialogChoice;
 
 public class ChooseShadingTypeDialog implements IDialogChoice<ShapeShadingType> {
     private final IApplicationState applicationState;
 
-    public ChooseShadingTypeDialog(IApplicationState applicationState) {
+    ChooseShadingTypeDialog(IApplicationState applicationState) {
 
         this.applicationState = applicationState;
     }

@@ -7,13 +7,11 @@ import java.util.NoSuchElementException;
 import javax.swing.*;
 import javax.swing.border.*;
 
-import model.persistence.ApplicationState;
 import view.interfaces.IGuiWindow;
 import view.EventName;
 
 import java.awt.*;
 
-// GuiWindow is the 'source' to which our handle 'listens'
 
 public class GuiWindow extends JFrame implements IGuiWindow {
     // these private members define the sizes and labels to our GuiWindow
@@ -96,10 +94,6 @@ public class GuiWindow extends JFrame implements IGuiWindow {
         contentPane.setBackground(Color.WHITE);
         setContentPane(contentPane);
         return contentPane;
-    }
-
-    private JLabel createStatusBar() {
-        return new JLabel("Status: ");
     }
 
 }

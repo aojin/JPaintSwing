@@ -9,8 +9,6 @@ import view.gui.PaintCanvas;
 import view.interfaces.IGuiWindow;
 import view.interfaces.IUiModule;
 
-import java.util.ArrayList;
-
 public class Main {
     public static void main(String[] args){
         PaintCanvas pc = new PaintCanvas();

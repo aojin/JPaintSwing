@@ -7,7 +7,7 @@ import view.interfaces.IDialogChoice;
 public class ChooseStartAndEndPointModeDialog implements IDialogChoice<StartAndEndPointMode> {
     private final IApplicationState applicationState;
 
-    public ChooseStartAndEndPointModeDialog(IApplicationState applicationState) {
+    ChooseStartAndEndPointModeDialog(IApplicationState applicationState) {
 
         this.applicationState = applicationState;
     }

@@ -1,6 +1,6 @@
 package model.dialogs;
 
-import model.ShapeColor;
+import model.shapes.ShapeColor;
 import model.interfaces.IApplicationState;
 import view.interfaces.IDialogChoice;
 
@@ -8,7 +8,7 @@ public class ChoosePrimaryColorDialog implements IDialogChoice<ShapeColor> {
 
     private final IApplicationState applicationState;
 
-    public ChoosePrimaryColorDialog(IApplicationState applicationState) {
+    ChoosePrimaryColorDialog(IApplicationState applicationState) {
         this.applicationState = applicationState;
     }
 

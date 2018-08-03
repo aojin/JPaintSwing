@@ -1,8 +1,9 @@
 package model.persistence;
 
-import model.ShapeColor;
-import model.ShapeShadingType;
-import model.ShapeType;
+
+import model.shapes.ShapeColor;
+import model.shapes.ShapeShadingType;
+import model.shapes.ShapeType;
 import model.StartAndEndPointMode;
 import model.dialogs.DialogProvider;
 import model.interfaces.IApplicationState;
@@ -19,9 +20,11 @@ public class ApplicationState implements IApplicationState {
     private ShapeShadingType activeShapeShadingType;
     private StartAndEndPointMode activeStartAndEndPointMode;
 
+
     public ApplicationState(IUiModule uiModule) {
         this.uiModule = uiModule;
         this.dialogProvider = new DialogProvider(this);
+
         setDefaults();
     }
 
@@ -32,9 +35,18 @@ public class ApplicationState implements IApplicationState {
     }
 
     @Override
+    public void setActiveShapeTypeByParameter(ShapeType previousShapeType) {
+        activeShapeType = previousShapeType;
+    }
+
+    @Override
     public void setActivePrimaryColor() {
         activePrimaryColor = uiModule.getDialogResponse(dialogProvider.getChoosePrimaryColorDialog());
         System.out.println("\nActive Primary Color set to " + activePrimaryColor);
+    }
+
+    public void setActivePrimaryColorByParameter(ShapeColor previousPrimaryColor){
+        activePrimaryColor = previousPrimaryColor;
     }
 
     @Override
@@ -44,15 +56,28 @@ public class ApplicationState implements IApplicationState {
     }
 
     @Override
+    public void setActiveSecondaryColorByParameter(ShapeColor previousSecondaryColor) {
+        activeSecondaryColor = previousSecondaryColor;
+    }
+
+    @Override
     public void setActiveShadingType() {
         activeShapeShadingType = uiModule.getDialogResponse(dialogProvider.getChooseShadingTypeDialog());
         System.out.println("\nActive Shape Shading Type set to " + activeShapeShadingType);
+    }
+
+    public void setActiveShapeShadingTypeByParameter(ShapeShadingType previousShapeShadingType){
+        activeShapeShadingType = previousShapeShadingType;
     }
 
     @Override
     public void setActiveStartAndEndPointMode() {
         activeStartAndEndPointMode = uiModule.getDialogResponse(dialogProvider.getChooseStartAndEndPointModeDialog());
         System.out.println("\nActive Start And End Point Mode set to " + activeStartAndEndPointMode);
+    }
+
+    public void setActiveStartAndEndPointModeByParameter(StartAndEndPointMode startAndEndPointMode) {
+        activeStartAndEndPointMode = startAndEndPointMode;
     }
 
     @Override
@@ -74,6 +99,7 @@ public class ApplicationState implements IApplicationState {
     public ShapeShadingType getActiveShapeShadingType() {
         return activeShapeShadingType;
     }
+
 
     @Override
     public StartAndEndPointMode getActiveStartAndEndPointMode() {

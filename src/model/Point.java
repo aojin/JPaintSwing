@@ -32,4 +32,10 @@ public class Point {
         return otherPoint.getX() == x
                 && otherPoint.getY() == y;
     }
+
+    public String toString(){
+        String x = String.valueOf(this.getX());
+        String y = String.valueOf(this.getY());
+        return "(" + x + " , " + y + ")";
+    }
 }

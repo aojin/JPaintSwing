@@ -1,13 +1,13 @@
 package model.dialogs;
 
-import model.ShapeType;
+import model.shapes.ShapeType;
 import model.interfaces.IApplicationState;
 import view.interfaces.IDialogChoice;
 
 public class ChooseShapeDialog implements IDialogChoice<ShapeType> {
     private final IApplicationState applicationState;
 
-    public ChooseShapeDialog(IApplicationState applicationState) {
+    ChooseShapeDialog(IApplicationState applicationState) {
 
         this.applicationState = applicationState;
     }

@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 public class ShapeIterator implements Iterator<IShape>, IIterator {
-    int currentIndex = 0;
+    private int currentIndex = 0;
     ArrayList<IShape> shapes;
 
     ShapeIterator(ArrayList<IShape> inShapes) {
@@ -16,11 +16,7 @@ public class ShapeIterator implements Iterator<IShape>, IIterator {
 
     @Override
     public boolean hasNext() {
-        if (shapes.get(currentIndex++) != null) {
-            return true;
-        } else {
-            return false;
-        }
+        return shapes.get(currentIndex++) != null;
     }
 
     @Override
