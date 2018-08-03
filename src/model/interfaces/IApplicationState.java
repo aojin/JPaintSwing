@@ -1,8 +1,9 @@
 package model.interfaces;
 
-import model.ShapeColor;
-import model.ShapeShadingType;
-import model.ShapeType;
+import model.persistence.ApplicationState;
+import model.shapes.ShapeColor;
+import model.shapes.ShapeShadingType;
+import model.shapes.ShapeType;
 import model.StartAndEndPointMode;
 
 public interface IApplicationState {
@@ -25,4 +26,13 @@ public interface IApplicationState {
     ShapeShadingType getActiveShapeShadingType();
 
     StartAndEndPointMode getActiveStartAndEndPointMode();
+
+    //for undo redo
+
+    void setActivePrimaryColorByParameter(ShapeColor previousPrimaryColor);
+    void setActiveSecondaryColorByParameter(ShapeColor previousSecondaryColor);
+    void setActiveShapeTypeByParameter(ShapeType previousShapeType);
+    void setActiveShapeShadingTypeByParameter(ShapeShadingType previousShapeShadingType);
+    void setActiveStartAndEndPointModeByParameter(StartAndEndPointMode startAndEndPointMode);
+
 }
