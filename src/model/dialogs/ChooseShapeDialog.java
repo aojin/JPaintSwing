@@ -14,7 +14,7 @@ public class ChooseShapeDialog implements IDialogChoice<ShapeType> {
 
     @Override
     public String getDialogTitle() {
-        return "Shape";
+        return "ShapeSelector";
     }
 
     @Override
