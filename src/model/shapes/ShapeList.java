@@ -12,6 +12,9 @@ public class ShapeList implements Iterable<IShape> {
 
     public ShapeList(ArrayList<IShape> shapeList){ this.shapeList = shapeList; }
 
+    protected ShapeList() {
+    }
+
     public void addShape(IShape shape){
         shapeList.add(shape);
     }
@@ -23,6 +26,19 @@ public class ShapeList implements Iterable<IShape> {
             shape.draw(graphics2D);
             //shape.drawBoundingBox(graphics2D);
         }
+    }
+
+    public void clearList(){
+        Iterator<IShape> iterator = shapeList.iterator();
+        while(iterator.hasNext()){
+            IShape next = iterator.next();
+            iterator.remove();
+        }
+    }
+
+    public ShapeList delete(ArrayList<IShape> toDelete) {
+        shapeList.removeIf(toDelete::contains);
+        return this;
     }
 
     public int size() {
@@ -40,10 +56,12 @@ public class ShapeList implements Iterable<IShape> {
 
     public void printShapeList(){
         Iterator<IShape> iterator = shapeList.iterator();
-        System.out.println("\nCurrent ShapeList: ");
+        System.out.println("\n\nCurrent ShapeList stored in Model: \n");
+        System.out.print("{ ");
         while(iterator.hasNext()){
-            System.out.print(iterator.next().printShapeType() + " ");
+            System.out.print("[" + iterator.next().printShapeType() + "] , ");
         }
+        System.out.print("}\n");
     }
 
 }

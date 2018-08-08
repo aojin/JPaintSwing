@@ -1,5 +1,6 @@
 package controller;
 
+import model.Clipboard;
 import model.Point;
 import model.persistence.ApplicationState;
 import model.shapes.*;
@@ -8,6 +9,7 @@ import view.gui.PaintCanvas;
 
 
 import java.awt.*;
+import java.awt.Rectangle;
 import java.util.ArrayList;
 
 
@@ -20,18 +22,19 @@ public class GuiObserver {
     private Graphics2D graphics;
     private PaintCanvas pc;
     private final ShapeFactory shapeFactory = new ShapeFactory();
-   // private final CommandFactory commandFactory = new CommandFactory(this);
-    private ArrayList<IShape> allSelectedShapes = new ArrayList<>();
+    private Clipboard clipboard;
+    public ArrayList<IShape> allSelectedShapes = new ArrayList<>();
 
     public GuiObserver(PaintCanvas pc, ApplicationState appState) {
-        setGraphics(pc.getGraphics2D());
+        graphics = pc.getGraphics2D();
         this.pc = pc;
         this.appState = appState;
     }
 
-    private void setGraphics(Graphics2D graphics) {
-        this.graphics = graphics;
+    private void setGraphics() {
+        graphics = (Graphics2D) pc.getGraphics();
     }
+
 
     public void buildShape(Point startPoint, Point endPoint) {
 
@@ -49,17 +52,29 @@ public class GuiObserver {
         }
         shapeList.addShape(shape);
 
-        System.out.printf("\nAdded %s to the shapeList.", shape.printShapeType());
+        System.out.printf("\n\nAdded %s to the shapeList.", shape.printShapeType());
         shapeList.printShapeList(); // Uses iterator to print a list of shapeTypes to console
         drawShapeList();
     }
 
-    private void drawShapeList() {
-        shapeList.drawShape(graphics);
+    public void drawShapeList() {
+         shapeList.drawShape(graphics);
     }
 
     private boolean shapeContainedInSelectedShapes(IShape shape) { // check membership
         return allSelectedShapes.contains(shape);
+    }
+
+    public Clipboard getClipboard() {
+        if (!allSelectedShapes.isEmpty()){
+
+            return clipboard;
+        }
+        return null;
+    }
+
+    public void setClipBoard() {
+        clipboard= new Clipboard(allSelectedShapes);
     }
 
     private void setShapeAsSelected(IShape shapeToSelect) {
@@ -69,7 +84,10 @@ public class GuiObserver {
     }
 
     private void printSelectedShapesList() {
-        System.out.println("\nSelected Shapes List: ");
+        System.out.println("\n\nSelected Shapes List: ");
+        if (allSelectedShapes.isEmpty()){
+            System.out.println("--> No shapes selected <--");
+        }
         for (IShape shape : allSelectedShapes) {
             System.out.println(shape.toString());
         }
@@ -98,7 +116,7 @@ public class GuiObserver {
                 setShapeAsSelected(shape);
                 shapeList.removeShape(shape);
                 shapeList.printShapeList();
-                pc.clear(); // calls repaint() in canvas
+                pc.repaint(); // calls repaint() in canvas
                 System.out.printf("\n%s selected for move.", shape.toString());
                 return shape;
             }
@@ -117,28 +135,54 @@ public class GuiObserver {
         shapeList.addShape(shape);
         shapeList.printShapeList();
         drawShapeList();
-    }
-
-    public void deleteSelectedShapes(){
 
     }
 
+    public ArrayList<IShape> getAllSelectedShapes() {
+        return allSelectedShapes;
+    }
 
-//    public IShape shapeContainingPoint(Point pt) {
-//        for (int i = shapeList.size() - 1; i >= 0; i--) {
-//            IShape shape = shapeList.get(i);
-//            BoundingBox box = shape.getBoundingBox();
-//
-//            if (box.contains(pt)) {
-//                setSelectedShape(shape);
-//                System.out.printf("\nPoint %s intersected shape %s", pt.toString(), selectedShape.printShapeType());
-//                return shape;
-//            }
-//        }
-//            System.out.println("\nCouldn't find shape in that bound.");
-//            return null; // if no shape contains pt
-//    }
+    public ShapeList getShapeList() {
+        return shapeList;
+    }
 
+    public Graphics2D getGraphics() {
+        return graphics;
+    }
+
+    public PaintCanvas getPaintCanvas() {
+        return pc;
+    }
+
+    public int getCanvasHeight(){
+        return pc.getHeight();
+    }
+
+    public int getCanvasWidth(){
+        return pc.getWidth();
+    }
+
+    void deleteSelectedShapes(){
+
+        if (allSelectedShapes != null) {
+            shapeList.delete(allSelectedShapes);
+            allSelectedShapes.clear();
+
+        }
+        graphics.clearRect(0, 0, pc.getWidth(), pc.getHeight());
+        shapeList.printShapeList();
+        drawShapeList();
+
+    }
+
+
+
+    void clearCanvas()
+    {
+        shapeList.clearList();
+        pc.clear();
+        shapeList.printShapeList();
+        }
 
 
 

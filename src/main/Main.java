@@ -1,5 +1,6 @@
 package main;
 
+import controller.GuiObserver;
 import controller.IJPaintController;
 import controller.JPaintController;
 import model.persistence.ApplicationState;
@@ -15,8 +16,8 @@ public class Main {
         IGuiWindow guiWindow = new GuiWindow(pc);
         IUiModule uiModule = new Gui(guiWindow);
         ApplicationState appState = new ApplicationState(uiModule);
-        pc.addGuiObserver(appState);
-        IJPaintController controller = new JPaintController(uiModule, appState);
+        GuiObserver observer = pc.addGuiObserver(appState);
+        IJPaintController controller = new JPaintController(uiModule, observer, appState);
         controller.setup();
     }
 }

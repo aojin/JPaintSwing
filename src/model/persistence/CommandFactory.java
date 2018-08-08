@@ -7,14 +7,14 @@
 //
 //public class CommandFactory {
 //
-//    private static Command command;
+//    private static ICommand command;
 //    GuiObserver observer;
 //
 //    public CommandFactory(GuiObserver observer){
 //        this.observer = observer;
 //    }
 //
-//    public static Command createCommand(EventName eventName, IEventCallback callback, GuiObserver observer) {
+//    public static ICommand createCommand(EventName eventName, IEventCallback callback, GuiObserver observer) {
 //
 //        switch (eventName) {
 //            case COPY:

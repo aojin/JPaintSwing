@@ -80,6 +80,7 @@ public class ApplicationState implements IApplicationState {
         activeStartAndEndPointMode = startAndEndPointMode;
     }
 
+
     @Override
     public ShapeType getActiveShapeType() {
         return activeShapeType;

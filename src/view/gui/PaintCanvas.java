@@ -5,14 +5,13 @@ import model.Point;
 import model.StartAndEndPointMode;
 import model.interfaces.IShape;
 import model.shapes.BoundingBox;
-import model.shapes.ShapeList;
 import model.persistence.ApplicationState;
+import model.shapes.ShapeList;
 import view.interfaces.IPaintCanvas;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.util.ArrayList;
 
 // The SUBJECT to our IGuiObserver. VIEW generates events, events typically cause a controller to change a model or view, or both. In this case, the Observer is part of Controller.
 // Encapsulates a private class MouseListener which extends MouseAdapter
@@ -26,34 +25,37 @@ import java.util.ArrayList;
 public class PaintCanvas extends JComponent implements IPaintCanvas{
 
     private GuiObserver observer;
+    private Graphics2D graphics = (Graphics2D) getGraphics();
 
     // when observer calls update(), concrete subject calls getState().
     // this.repaint() + revalidate() clears....
-    private boolean changed = false;
 
-    public PaintCanvas() {
-        getGraphics2D(); // when you build your canvas you get a new graphics object.
-    }
-
-    public void addGuiObserver(ApplicationState appState) {
+    public GuiObserver addGuiObserver(ApplicationState appState) {
         // concrete has an observer
         observer = new GuiObserver(this, appState);
         this.addMouseListener(new MouseListener(observer)); // creates a new MouseListener around our observer.
+        return observer;
     }
 
     public Graphics2D getGraphics2D() { // concrete subject's getState() funct
+        graphics = (Graphics2D) getGraphics();
         // state of what actually displays...
-        return (Graphics2D) getGraphics();
+        return graphics;
+    }
+
+
+    public void redraw() {
+
     }
 
     public void clear() {
+
         this.repaint();
+        this.revalidate();
+        observer.drawShapeList();
+
     }
 
-//    public void update(Graphics2D graphics) {
-//        this.graphics = graphics;
-//        graphicsChanged();
-//    }
 
 //    // Observable methods:
 //

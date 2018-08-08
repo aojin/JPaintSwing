@@ -28,6 +28,10 @@ public class ShapeIterator implements Iterator<IShape>, IIterator {
 
     @Override
     public void remove() {
-        shapes.remove(currentIndex);
+        if(currentIndex <= 0) {
+            throw new IllegalStateException("You can't delete element before first next() method call");
+        }
+        shapes.remove(--currentIndex);
     }
+
 }

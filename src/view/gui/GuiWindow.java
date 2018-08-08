@@ -15,7 +15,7 @@ import java.awt.*;
 
 public class GuiWindow extends JFrame implements IGuiWindow {
     // these private members define the sizes and labels to our GuiWindow
-    private final int defaultWidth = 1200;
+    private final int defaultWidth = 1530;
     private final int defaultHeight = 800;
     private final String defaultTitle = "JPaint";
     private final Insets defaultButtonDimensions 

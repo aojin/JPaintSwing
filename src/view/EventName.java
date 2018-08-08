@@ -41,14 +41,20 @@ public enum EventName {
     },
 	COPY {
 	    @Override
-        public String toString() { return "COPY CURRENT SELECTION"; }
+        public String toString() { return "COPY"; }
     },
 	PASTE {
 	    @Override
-        public String toString() { return  "PASTE CURRENT SELECTION"; }
+        public String toString() { return  "PASTE SELECTION"; }
     },
 	DELETE {
 	    @Override
-        public String toString(){ return "DELETE CURRENT SELECTION"; }
-    }
+        public String toString(){ return "DELETE SELECTION"; }
+    },
+	CLEAR {
+		@Override
+		public String toString() {
+			return "CLEAR CANVAS";
+		}
+	}
 }

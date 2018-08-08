@@ -14,9 +14,11 @@ public class Ellipse implements IShape {
     private ShapeShadingType shapeShadingType;
     private ShapeColor primaryColor ;
     private ShapeColor secondaryColor;
+    private int x1, x2, y1, y2;
     private int width, height;
     private boolean selected;
     private BoundingBox box;
+    private Graphics2D graphics2D;
 
     Ellipse(){
     }
@@ -24,10 +26,12 @@ public class Ellipse implements IShape {
     @Override
     public void draw(Graphics2D graphics){
 
-        int x1 = Math.min(startPoint.getX(), endPoint.getX());
-        int x2 = Math.max(startPoint.getX(), endPoint.getX());
-        int y1 = Math.min(startPoint.getY(), endPoint.getY());
-        int y2 = Math.max(startPoint.getY(), endPoint.getY());
+        this.graphics2D = graphics;
+
+        x1 = Math.min(startPoint.getX(), endPoint.getX());
+        x2 = Math.max(startPoint.getX(), endPoint.getX());
+        y1 = Math.min(startPoint.getY(), endPoint.getY());
+        y2 = Math.max(startPoint.getY(), endPoint.getY());
 
         box = new BoundingBox(startPoint, endPoint);
         width = x2-x1;
@@ -49,6 +53,15 @@ public class Ellipse implements IShape {
             graphics.drawOval(x1, y1,
                     width, height);
         }
+    }
+
+    public void delete() {
+        graphics2D.setColor(primaryColor.getAwtColor());
+        graphics2D.fillOval(x1, y1,
+                width, height);
+        graphics2D.setColor(secondaryColor.getAwtColor());
+        graphics2D.drawOval(x1, y1,
+                width, height);
     }
 
     public int getWidth() {

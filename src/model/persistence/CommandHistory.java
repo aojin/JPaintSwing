@@ -3,18 +3,18 @@ package model.persistence;
 import java.util.Stack;
 
 public class CommandHistory {
-	private static final Stack<Command> undoStack = new Stack<>();
-	private static final Stack<Command> redoStack = new Stack<>();
+	private static final Stack<ICommand> undoStack = new Stack<>();
+	private static final Stack<ICommand> redoStack = new Stack<>();
 
-	public static void add(Command command) {
-		undoStack.push(command);
+	public static void add(ICommand ICommand) {
+		undoStack.push(ICommand);
 		redoStack.clear();
 	}
 
 	public static boolean undo() {
 		boolean result = !undoStack.empty();
 		if (result) {
-			Command e = undoStack.pop();
+			ICommand e = undoStack.pop();
 			redoStack.push(e);
 			e.undo(); // calls the objects' Undo or redo
 			System.out.printf("Called undo on last %s",e.getClass().getName());
@@ -25,7 +25,7 @@ public class CommandHistory {
 	public static boolean redo() {
 		boolean result = !redoStack.empty();
 		if (result) {
-			Command e = redoStack.pop();
+			ICommand e = redoStack.pop();
 			undoStack.push(e);
 			e.redo();
 			System.out.printf("Called redo on last %s",e.getClass().getName());
@@ -34,14 +34,14 @@ public class CommandHistory {
 	}
 
 	// For testing
-	Command topUndoCommand() {
+	ICommand topUndoICommand() {
 		if (undoStack.empty())
 			return null;
 		else
 			return undoStack.peek();
 	}
 	// For testing
-	Command topRedoCommand() {
+	ICommand topRedoICommand() {
 		if (redoStack.empty())
 			return null;
 		else

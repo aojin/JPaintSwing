@@ -28,8 +28,14 @@ public class Gui implements IUiModule { // The command Invoker
 		System.out.println(eventName);
 
 		//callback is a call to the lambda in JController...
-            button.addActionListener((ActionEvent) -> callback.run());
+            button.addActionListener((ActionEvent) -> {
+                if (eventName.equals(EventName.DELETE)){
+                    System.out.println("\nClicked delete...");
+                }
+                callback.run();
+            });
         } // the button is the invoker. The invoker calls the execution of encapsulated invocation.
+
 
     @Override
     public <T> T getDialogResponse(IDialogChoice dialogSettings) { // view gets data from the model.
