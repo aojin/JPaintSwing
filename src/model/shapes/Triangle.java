@@ -240,15 +240,15 @@ public class Triangle implements IShape{
         return shapeType;
     }
 
-    private ShapeColor getPrimaryColor() {
+    public ShapeColor getPrimaryColor() {
         return primaryColor;
     }
 
-    private ShapeColor getSecondaryColor() {
+    public ShapeColor getSecondaryColor() {
         return secondaryColor;
     }
 
-    private ShapeShadingType getShapeShadingType() {
+    public ShapeShadingType getShapeShadingType() {
         return shapeShadingType;
     }
 

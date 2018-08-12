@@ -39,6 +39,11 @@ public interface IShape {
 
     ShapeType getShape();
 
+    ShapeColor getPrimaryColor();
+    ShapeColor getSecondaryColor();
+
+    ShapeShadingType getShapeShadingType();
+
     String printShapeType();
 
     String toString();

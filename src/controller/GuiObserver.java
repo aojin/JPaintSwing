@@ -6,10 +6,7 @@ import model.persistence.ApplicationState;
 import model.shapes.*;
 import model.interfaces.IShape;
 import view.gui.PaintCanvas;
-
-
 import java.awt.*;
-import java.awt.Rectangle;
 import java.util.ArrayList;
 
 
@@ -31,10 +28,6 @@ public class GuiObserver {
         this.appState = appState;
     }
 
-    private void setGraphics() {
-        graphics = (Graphics2D) pc.getGraphics();
-    }
-
 
     public void buildShape(Point startPoint, Point endPoint) {
 
@@ -51,14 +44,22 @@ public class GuiObserver {
             shape.setSecondaryColor(appState.getActiveSecondaryColor());
         }
         shapeList.addShape(shape);
-
         System.out.printf("\n\nAdded %s to the shapeList.", shape.printShapeType());
         shapeList.printShapeList(); // Uses iterator to print a list of shapeTypes to console
         drawShapeList();
     }
 
+    public IShape duplicateShape(IShape shape){
+        IShape duplShape = shapeFactory.getShape(shape.getShape());
+        duplShape.setShapeShadingType(shape.getShapeShadingType());
+        duplShape.setPrimaryColor(shape.getPrimaryColor());
+        duplShape.setSecondaryColor(shape.getSecondaryColor());
+        return duplShape;
+    }
+
     public void drawShapeList() {
-         shapeList.drawShape(graphics);
+        graphics.clearRect(0, 0, pc.getWidth(), pc.getHeight());
+        shapeList.drawShape(graphics);
     }
 
     private boolean shapeContainedInSelectedShapes(IShape shape) { // check membership
@@ -67,14 +68,17 @@ public class GuiObserver {
 
     public Clipboard getClipboard() {
         if (!allSelectedShapes.isEmpty()){
-
             return clipboard;
         }
         return null;
     }
 
-    public void setClipBoard() {
+    public void setClipboard() {
         clipboard= new Clipboard(allSelectedShapes);
+    }
+
+    public void clearClipboard(){
+        clipboard = new Clipboard(null);
     }
 
     private void setShapeAsSelected(IShape shapeToSelect) {
@@ -115,9 +119,8 @@ public class GuiObserver {
             if (box.contains(startPoint)) {
                 setShapeAsSelected(shape);
                 shapeList.removeShape(shape);
-                shapeList.printShapeList();
                 pc.repaint(); // calls repaint() in canvas
-                System.out.printf("\n%s selected for move.", shape.toString());
+                System.out.printf("\n%s selected for move.", shape.printShapeType());
                 return shape;
             }
         }
@@ -133,9 +136,7 @@ public class GuiObserver {
         Point newStartPoint = shape.getStartPoint();
         shape.setEndPoint(newStartPoint.getX() + width, newStartPoint.getY()+ height);
         shapeList.addShape(shape);
-        shapeList.printShapeList();
         drawShapeList();
-
     }
 
     public ArrayList<IShape> getAllSelectedShapes() {
@@ -154,26 +155,17 @@ public class GuiObserver {
         return pc;
     }
 
-    public int getCanvasHeight(){
-        return pc.getHeight();
-    }
-
-    public int getCanvasWidth(){
-        return pc.getWidth();
-    }
-
-    void deleteSelectedShapes(){
-
-        if (allSelectedShapes != null) {
-            shapeList.delete(allSelectedShapes);
-            allSelectedShapes.clear();
-
-        }
-        graphics.clearRect(0, 0, pc.getWidth(), pc.getHeight());
-        shapeList.printShapeList();
-        drawShapeList();
-
-    }
+//    void deleteSelectedShapes(){
+//
+//        if (allSelectedShapes != null) {
+//            shapeList.delete(allSelectedShapes);
+//            allSelectedShapes.clear();
+//        }
+//        graphics.clearRect(0, 0, pc.getWidth(), pc.getHeight());
+//        shapeList.printShapeList();
+//        drawShapeList();
+//
+//    }
 
 
 

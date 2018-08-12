@@ -1,9 +1,13 @@
 package view.gui;
 
+import controller.Commands.DrawCommand;
+import controller.Commands.MoveCommand;
 import controller.GuiObserver;
 import model.Point;
 import model.StartAndEndPointMode;
 import model.interfaces.IShape;
+import model.persistence.CommandHistory;
+import model.persistence.ICommand;
 import model.shapes.BoundingBox;
 import model.persistence.ApplicationState;
 import model.shapes.ShapeList;
@@ -105,7 +109,6 @@ public class PaintCanvas extends JComponent implements IPaintCanvas{
 
             // MOVE
             if (appState.getActiveStartAndEndPointMode().equals(StartAndEndPointMode.MOVE)) {
-
                 shapeSelectedToMove = observer.pickUpShape(startPoint);
             }
 
@@ -121,13 +124,16 @@ public class PaintCanvas extends JComponent implements IPaintCanvas{
 
             // DRAW MODE
             if (appState.getActiveStartAndEndPointMode().equals(StartAndEndPointMode.DRAW)) {
-
-                observer.buildShape(startPoint, endPoint);
+                ICommand drawCommand = new DrawCommand(observer, startPoint, endPoint);
+                CommandHistory.add(drawCommand);
+                drawCommand.run();
 
             } else if (appState.getActiveStartAndEndPointMode().equals(StartAndEndPointMode.MOVE)) {
 
                 if(shapeSelectedToMove != null) {
-                    observer.dropShape(shapeSelectedToMove, endPoint);
+                    ICommand moveCommand = new MoveCommand(observer, shapeSelectedToMove, startPoint, endPoint);
+                    CommandHistory.add(moveCommand);
+                    moveCommand.run();
                     shapeSelectedToMove = null;
                 }
 

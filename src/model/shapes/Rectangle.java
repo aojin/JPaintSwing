@@ -64,15 +64,15 @@ public class Rectangle implements IShape {
 
     public ShapeType getShape() { return shapeType; }
 
-    private ShapeColor getPrimaryColor() {
+    public ShapeColor getPrimaryColor() {
         return primaryColor;
     }
 
-    private ShapeColor getSecondaryColor() {
+    public ShapeColor getSecondaryColor() {
         return secondaryColor;
     }
 
-    private ShapeShadingType getShapeShadingType() {
+    public ShapeShadingType getShapeShadingType() {
         return shapeShadingType;
     }
 

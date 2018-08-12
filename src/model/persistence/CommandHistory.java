@@ -17,7 +17,7 @@ public class CommandHistory {
 			ICommand e = undoStack.pop();
 			redoStack.push(e);
 			e.undo(); // calls the objects' Undo or redo
-			System.out.printf("Called undo on last %s",e.getClass().getName());
+			System.out.printf("Command History: Called undo on last %s",e.getClass().getName());
 		}
 		return result;
 	}
@@ -28,7 +28,7 @@ public class CommandHistory {
 			ICommand e = redoStack.pop();
 			undoStack.push(e);
 			e.redo();
-			System.out.printf("Called redo on last %s",e.getClass().getName());
+			System.out.printf("Command History: Called redo on last %s",e.getClass().getName());
 		}
 		return result;
 	}

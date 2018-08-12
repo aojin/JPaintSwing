@@ -30,7 +30,13 @@ public class Gui implements IUiModule { // The command Invoker
 		//callback is a call to the lambda in JController...
             button.addActionListener((ActionEvent) -> {
                 if (eventName.equals(EventName.DELETE)){
-                    System.out.println("\nClicked delete...");
+                    System.out.println("\n\nClicked delete...");
+                }
+                if (eventName.equals(EventName.UNDO)){
+                    System.out.println("\n\nClicked undo...");
+                }
+                if (eventName.equals(EventName.REDO)){
+                    System.out.println("\n\nClicked redo...");
                 }
                 callback.run();
             });

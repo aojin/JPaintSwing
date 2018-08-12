@@ -106,15 +106,15 @@ public class Ellipse implements IShape {
     @Override
     public ShapeType getShape() { return shapeType; }
 
-    private ShapeShadingType getShapeShadingType() {
+    public ShapeShadingType getShapeShadingType() {
         return shapeShadingType;
     }
 
-    private ShapeColor getPrimaryColor() {
+    public ShapeColor getPrimaryColor() {
         return primaryColor;
     }
 
-    private ShapeColor getSecondaryColor() {
+    public ShapeColor getSecondaryColor() {
         return secondaryColor;
     }
 

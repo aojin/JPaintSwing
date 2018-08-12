@@ -36,9 +36,8 @@ public class ShapeList implements Iterable<IShape> {
         }
     }
 
-    public ShapeList delete(ArrayList<IShape> toDelete) {
+    public void delete(ArrayList<IShape> toDelete) {
         shapeList.removeIf(toDelete::contains);
-        return this;
     }
 
     public int size() {
@@ -50,7 +49,7 @@ public class ShapeList implements Iterable<IShape> {
     }
 
     public ShapeIterator iterator() {
-        return new ShapeIterator(shapeList);
+        return new ShapeIterator();
     }
     // need iterator to remove
 
@@ -63,5 +62,27 @@ public class ShapeList implements Iterable<IShape> {
         }
         System.out.print("}\n");
     }
+
+    class ShapeIterator implements Iterator<IShape>, IIterator {
+        int currentIndex = 0;
+
+        @Override
+        public boolean hasNext() {
+            return currentIndex < shapeList.size();
+        }
+
+        @Override
+        public IShape next() {
+            return shapeList.get(currentIndex++);
+        }
+
+        @Override
+        public void remove() {
+            shapeList.remove(--currentIndex);
+        }
+
+
+    }
+
 
 }
